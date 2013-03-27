@@ -1,0 +1,2 @@
+pandoc -t beamer --template tim.beamer -o slides.pdf -V theme:tim slides.lhs
+pdfunite front.pdf slides.pdf slides-final.pdf
