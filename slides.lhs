@@ -1634,11 +1634,16 @@ Expr Hashable instance
 >   hashWithSalt s = F.foldl hashWithSalt s . unFix
 
 > instance Hashable r => Hashable (ExprF r) where
->   hashWithSalt s (Const c)     = c
->   hashWithSalt s (Var id)      = hashWithSalt s id
->   hashWithSalt s (Add x y)     = hashWithSalt s (x, y)
->   hashWithSalt s (Mul x y)     = hashWithSalt s (x, y)
->   hashWithSalt s (IfNeg t x y) = hashWithSalt s (t, x, y)
+>   hashWithSalt s (Const c)
+>     = 1 `hashWithSalt` s `hashWithSalt` c
+>   hashWithSalt s (Var id)
+>     = 2 `hashWithSalt` s `hashWithSalt` id
+>   hashWithSalt s (Add x y)
+>     = 3 `hashWithSalt` s `hashWithSalt` (x, y)
+>   hashWithSalt s (Mul x y)
+>     = 4 `hashWithSalt` s `hashWithSalt` (x, y)
+>   hashWithSalt s (IfNeg t x y)
+>     = 5 `hashWithSalt` s `hashWithSalt` (t, x, y)
 
 ----
 
