@@ -234,7 +234,7 @@ Catamorphisms
 A *catamorphism* (cata meaning “downwards”) is a generalisation of the concept of a fold.
 
 - models the fundamental pattern of (internal) *iteration*
-- for a list, it describes processing from the right
+- for a list, it describes bracketing from the right
 - for a tree, it describes a bottom-up traversal, i.e. children first
 
 `foldr` from the Haskell Prelude is a specialised catamorphism:
@@ -242,7 +242,7 @@ A *catamorphism* (cata meaning “downwards”) is a generalisation of the conce
 ~~~{.haskell}
 foldr :: (a -> b -> b) -> z -> [a] -> [b]
 foldr f z []     = z
-foldr f z (x:xs) = x `f` foldr f z xs
+foldr f z (x:xs) = f x (foldr f z xs)
 ~~~
 
 ---
@@ -1461,7 +1461,7 @@ Note that we have to check for redundant live conditionals for which both branch
      ((ifNeg a then b else (b + 2)) * 3)
    else
      4)
- 
+
  > disconts (M.fromList [("b",-1)]) e2
  1
 ~~~
